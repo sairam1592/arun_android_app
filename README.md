@@ -1,4 +1,4 @@
-# Recipe Realm Android App (Google PlayStore) {https://play.google.com/store/apps/details?id=com.arun.myrecipeapplication}
+# Recipe Realm Android App (Download from Google PlayStore - https://play.google.com/store/apps/details?id=com.arun.myrecipeapplication)
 
 Welcome to the repository of my latest Android application -> Recipe Realm, where modern design meets seamless functionality. This project is a testament to the best practices in software development, featuring Clean Code, Clean Architecture, and adherence to SOLID principles.
 
