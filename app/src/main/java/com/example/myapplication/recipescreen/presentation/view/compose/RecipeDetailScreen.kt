@@ -1,5 +1,6 @@
 package com.example.myapplication.recipescreen.presentation.view.compose
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -37,7 +38,8 @@ import com.example.myapplication.recipescreen.presentation.viewmodel.RecipeDetai
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeDetailScreen(viewModel: RecipeDetailsViewModel = viewModel(), onUpClick: () -> Unit) {
-    val recipe by viewModel.recipeDetailState.collectAsStateWithLifecycle()
+    val recipeInfo by viewModel.recipeDetailState.collectAsStateWithLifecycle()
+    Log.d("testres", "recipeInfo: ${recipeInfo.recipeSampleQuestions}")
     Scaffold(
         topBar = {
             TopAppBar(
@@ -67,8 +69,8 @@ fun RecipeDetailScreen(viewModel: RecipeDetailsViewModel = viewModel(), onUpClic
         ) {
 
             Image(
-                painter = rememberAsyncImagePainter(recipe.recipeDetail?.image),
-                contentDescription = recipe.recipeDetail?.description,
+                painter = rememberAsyncImagePainter(recipeInfo.recipeDetail?.image),
+                contentDescription = recipeInfo.recipeDetail?.description,
                 modifier = Modifier
                     .aspectRatio(16f / 9f)
                     .height(278.dp),
@@ -81,20 +83,20 @@ fun RecipeDetailScreen(viewModel: RecipeDetailsViewModel = viewModel(), onUpClic
                     .padding(16.dp)
             ) {
                 Text(
-                    text = recipe.recipeDetail?.name.toString(),
+                    text = recipeInfo.recipeDetail?.name.toString(),
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
-                    text = recipe.recipeDetail?.headline ?: "",
+                    text = recipeInfo.recipeDetail?.headline ?: "",
                     style = MaterialTheme.typography.headlineSmall,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
 
                 Text(
-                    text = recipe.recipeDetail?.description.toString(),
+                    text = recipeInfo.recipeDetail?.description.toString(),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
