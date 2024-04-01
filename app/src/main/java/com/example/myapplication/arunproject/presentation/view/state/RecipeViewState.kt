@@ -10,5 +10,6 @@ data class RecipeViewState(
     val searchQuery: String = "",
     val cart: List<String> = emptyList(),
     val isAddToCartButtonEnabled: Boolean = false,
+    val isViewInfoButtonEnabled : Boolean = false,
     val errorMessage: String = ""
 )

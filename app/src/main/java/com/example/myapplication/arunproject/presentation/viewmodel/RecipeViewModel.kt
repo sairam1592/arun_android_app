@@ -3,10 +3,8 @@ package com.example.myapplication.arunproject.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.arunproject.common.AppConstants.NO_INTERNET_ERROR_MESSAGE
-import com.example.myapplication.arunproject.domain.usecase.GetRecipeByIdUseCase
 import com.example.myapplication.arunproject.domain.usecase.GetRecipesUseCase
 import com.example.myapplication.arunproject.presentation.view.state.RecipeViewState
-import com.example.myapplication.recipescreen.presentation.view.state.RecipeDetailUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,15 +16,11 @@ import javax.inject.Inject
 @HiltViewModel
 class RecipeViewModel @Inject constructor(
     private val getRecipesUseCase: GetRecipesUseCase,
-    private val getRecipeByIdUseCase: GetRecipeByIdUseCase,
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _recipeState = MutableStateFlow(RecipeViewState())
     val recipeState: StateFlow<RecipeViewState> = _recipeState.asStateFlow()
-
-    private val _recipeDetailState = MutableStateFlow(RecipeDetailUIState())
-    val recipeDetailState = _recipeDetailState.asStateFlow()
 
     init {
         loadRecipes()
@@ -49,23 +43,19 @@ class RecipeViewModel @Inject constructor(
         }
     }
 
-    fun getRecipeById(recipeId: String) {
-        viewModelScope.launch {
-            getRecipeByIdUseCase(recipeId).collect { result ->
-                _recipeDetailState.value = _recipeDetailState.value.copy(recipeDetail = result)
-            }
-        }
-    }
-
     fun onRecipeSelected(selectedIdFromState: String?, recipeId: String) {
         if (selectedIdFromState == recipeId) {
             _recipeState.value =
-                _recipeState.value.copy(selectedRecipeId = null, isAddToCartButtonEnabled = false)
+                _recipeState.value.copy(
+                    selectedRecipeId = null,
+                    isAddToCartButtonEnabled = false,
+                    isViewInfoButtonEnabled = false
+                )
         } else {
             _recipeState.value =
                 _recipeState.value.copy(
                     selectedRecipeId = recipeId,
-                    isAddToCartButtonEnabled = true
+                    isAddToCartButtonEnabled = true, isViewInfoButtonEnabled = true
                 )
         }
     }
@@ -82,7 +72,8 @@ class RecipeViewModel @Inject constructor(
 
     fun clearSelectedRecipeId() {
         _recipeState.value = _recipeState.value.copy(selectedRecipeId = null)
-        _recipeState.value = _recipeState.value.copy(isAddToCartButtonEnabled = true)
+        _recipeState.value =
+            _recipeState.value.copy(isAddToCartButtonEnabled = true, isViewInfoButtonEnabled = true)
     }
 
     fun showGridList(isShowGrid: Boolean) {

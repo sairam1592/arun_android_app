@@ -2,27 +2,41 @@ package com.example.myapplication.recipescreen.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.recipescreen.domain.usecase.GetRecipeDetailUseCase
+import com.example.myapplication.arunproject.domain.usecase.GetRecipeByIdUseCase
+import com.example.myapplication.recipescreen.domain.usecase.GetRecipeSampleQuestionsFromFirebaseUseCase
+import com.example.myapplication.recipescreen.presentation.view.state.RecipeDetailUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RecipeDetailsViewModel @Inject constructor(
-    private val getRecipeDetailUseCase: GetRecipeDetailUseCase
+    private val getRecipeByIdUseCase: GetRecipeByIdUseCase,
+    private val getRecipeSampleQuestionsFromFirebaseUseCase: GetRecipeSampleQuestionsFromFirebaseUseCase
 ) : ViewModel() {
 
-    private val _recipeDetails = MutableStateFlow<List<String>>(emptyList())
-    val recipeDetails: StateFlow<List<String>> = _recipeDetails.asStateFlow()
+    private val _recipeDetailState = MutableStateFlow(RecipeDetailUIState())
+    val recipeDetailState = _recipeDetailState.asStateFlow()
 
-    fun getRecipeDetails(recipeId: String) {
+    //TODO HANDLE ERROR CASE
+    //TODO FETCH normal details from DB AND SHOW IN COMPOSE SCREEN if any error
+    fun getRecipeSampleQuestionsFromFirebase(recipeId: String) {
         viewModelScope.launch {
-            getRecipeDetailUseCase(recipeId).collect { result ->
-                _recipeDetails.value = result
+            getRecipeSampleQuestionsFromFirebaseUseCase(recipeId).collect { result ->
+                _recipeDetailState.value =
+                    _recipeDetailState.value.copy(recipeSampleQuestions = result)
             }
         }
     }
+
+    fun getRecipeById(recipeId: String) {
+        viewModelScope.launch {
+            getRecipeByIdUseCase(recipeId).collect { result ->
+                _recipeDetailState.value = _recipeDetailState.value.copy(recipeDetail = result)
+            }
+        }
+    }
+
 }

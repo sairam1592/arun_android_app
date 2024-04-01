@@ -3,12 +3,12 @@ package com.example.myapplication.recipescreen.presentation.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import com.example.myapplication.recipescreen.presentation.view.compose.RecipeDetailScreen
 import com.example.myapplication.recipescreen.presentation.viewmodel.RecipeDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RecipeDetailsActivity : AppCompatActivity() {
@@ -19,13 +19,15 @@ class RecipeDetailsActivity : AppCompatActivity() {
 
         val recipeId = intent.getStringExtra(EXTRA_RECIPE_ID)
 
-        recipeId?.let { viewModel.getRecipeDetails(it) }
+        recipeId?.let {
+            viewModel.getRecipeById(it)
+            viewModel.getRecipeSampleQuestionsFromFirebase(it)
+        }
 
-        lifecycleScope.launch {
-            viewModel.recipeDetails.collect { result -> //Returns a list of questions to be displayed from firebase firestore
-                //TODO HANDLE ERROR CASE
-                //TODO FETCH normal details from DB AND SHOW IN COMPOSE SCREEN
-            }
+        setContent {
+            RecipeDetailScreen(
+                viewModel = viewModel, onUpClick = { finish() }
+            )
         }
     }
 

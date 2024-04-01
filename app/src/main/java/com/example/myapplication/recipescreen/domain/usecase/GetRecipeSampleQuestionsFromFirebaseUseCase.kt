@@ -4,10 +4,10 @@ import com.example.myapplication.recipescreen.data.repository.RecipeDetailsRepos
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetRecipeDetailUseCase @Inject constructor(
+class GetRecipeSampleQuestionsFromFirebaseUseCase @Inject constructor(
     private val repository: RecipeDetailsRepository
 ) {
     suspend operator fun invoke(recipeId: String): Flow<List<String>> {
-        return repository.getRecipeDetails(recipeId)
+        return repository.getRecipeSampleQuestionsFromFirebase(recipeId)
     }
 }

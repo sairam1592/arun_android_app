@@ -9,7 +9,7 @@ class RecipeDetailsRepositoryImpl @Inject constructor(
     private val dataSource: FirebaseRemoteDataSource
 ) : RecipeDetailsRepository {
 
-    override suspend fun getRecipeDetails(recipeId: String): Flow<List<String>> = flow {
-        emit(dataSource.getRecipeDetails(recipeId))
+    override suspend fun getRecipeSampleQuestionsFromFirebase(recipeId: String): Flow<List<String>> = flow {
+        emit(dataSource.getRecipeSampleQuestionsFromFirebase(recipeId))
     }
 }

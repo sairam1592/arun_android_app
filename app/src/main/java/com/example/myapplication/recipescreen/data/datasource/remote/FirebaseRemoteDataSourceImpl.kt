@@ -15,7 +15,7 @@ class FirebaseRemoteDataSourceImpl @Inject constructor(
     private val fireStore: FirebaseFirestore
 ) : FirebaseRemoteDataSource {
 
-    override suspend fun getRecipeDetails(recipeId: String): List<String> {
+    override suspend fun getRecipeSampleQuestionsFromFirebase(recipeId: String): List<String> {
 
         return suspendCoroutine { continuation ->
             fireStore.collection(FIREBASE_COLLECTION_NAME)

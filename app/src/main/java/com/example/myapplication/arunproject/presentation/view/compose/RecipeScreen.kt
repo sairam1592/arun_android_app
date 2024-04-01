@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomAppBar
@@ -53,7 +54,9 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterialApi
 @Composable
 fun RecipeScreen(
-    recipeViewModel: RecipeViewModel = viewModel(), isShowAdaptiveGrid: Boolean
+    recipeViewModel: RecipeViewModel = viewModel(),
+    isShowAdaptiveGrid: Boolean,
+    viewRecipe: (String) -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val recipesState by recipeViewModel.recipeState.collectAsStateWithLifecycle()
@@ -208,6 +211,30 @@ fun RecipeScreen(
                             end = dimensionResource(id = R.dimen.padding_5)
                         )
                     )
+
+                    Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_5)))
+
+                    Button(
+                        onClick = {
+                            (recipesState.selectedRecipeId?.let {
+                                viewRecipe(it)
+                            })
+                        },
+                        enabled = recipesState.isViewInfoButtonEnabled,
+                        shape = RoundedCornerShape(50),
+                        modifier = Modifier
+                            .wrapContentSize()
+                            .padding(dimensionResource(id = R.dimen.padding_4)),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = colorResource(id = R.color.blue_primary),
+                            disabledBackgroundColor = colorResource(id = R.color.cool_grey_500)
+                        )
+                    ) {
+                        Text(
+                            text = AppConstants.VIEW_INFO,
+                            color = colorResource(id = R.color.white)
+                        )
+                    }
 
                     Spacer(modifier = Modifier.weight(1f))
 

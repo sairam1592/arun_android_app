@@ -15,6 +15,8 @@ object AppConstants {
 
     const val CHOOSE_TEXT = "Choose a Recipe"
     const val ADD_TO_CART = "Add To Cart"
+    const val VIEW_INFO = "View Info"
+    const val RECIPE_DETAIL_TITLE = "Recipe Details"
     const val RECIPE_ROW = "Recipe Row"
     const val RECIPE_COLUMN = "Recipe Column"
 

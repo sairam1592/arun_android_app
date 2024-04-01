@@ -88,10 +88,9 @@ class AppModule {
     @Provides
     fun provideRecipeViewModel(
         getRecipesUseCase: GetRecipesUseCase,
-        getRecipeByIdUseCase: GetRecipeByIdUseCase,
         ioDispatcher: CoroutineDispatcher
     ): RecipeViewModel {
-        return RecipeViewModel(getRecipesUseCase, getRecipeByIdUseCase, ioDispatcher)
+        return RecipeViewModel(getRecipesUseCase, ioDispatcher)
     }
 
 
