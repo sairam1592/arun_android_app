@@ -1,4 +1,4 @@
-# Recipe Realm Android App
+# Recipe Realm Android App (Check it out in Google PlayStore -> https://play.google.com/store/apps/details?id=com.arun.myrecipeapplication)
 
 Welcome to the repository of my latest Android application -> Recipe Realm, where modern design meets seamless functionality. This project is a testament to the best practices in software development, featuring Clean Code, Clean Architecture, and adherence to SOLID principles.
 
@@ -28,12 +28,10 @@ This app has been passionately crafted to demonstrate the full spectrum of my de
 - Added No Internet Error screen with a Retry button to load recipe
 
 ## Upcoming Additions:
-- Publishing to Google Play store -> Submitted release bundle for Review
-- Host A set of questions in Firebase Firestore DB and fetch the same into the app (Done, working on UI)
-- Implement Open AI API 3.5gpt to best suggest cooking tips/help to user (Limit to 3 questions per user)
+- Host A set of questions in Firebase Firestore DB and fetch the same into the app (API Done, working on UI)
+- Implement Open AI API 3.5gpt and Google Gemini API to best suggest cooking tips/respond to questions of User with Tips & Answers (Limit to 3 questions per user)
 - A lot of Jetpack design implementation
-- Room DB for caching
-- More features such as Recipe Detail screen, Difficulty level of recipe, Refer to youtube link, Select/Unselect a Recipe, Multiple Select/Unselect just like in other food apps
+- More features such as Recipe Detail screen, Difficulty level of recipe, Refer to youtube link, Select/Unselect a Recipe, Multiple Select/Unselect just like in other food apps - In Progress
 - Unit Testing using Junit5 and Mockk
 
 ## Screenshots
