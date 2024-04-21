@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.myapplication.recipescreen.presentation.view.compose.RecipeDetailScreen
 import com.example.myapplication.recipescreen.presentation.viewmodel.RecipeDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,21 +27,29 @@ class RecipeDetailsActivity : AppCompatActivity() {
         }
 
         setContent {
+            val recipeInfo by viewModel.recipeDetailState.collectAsStateWithLifecycle()
             RecipeDetailScreen(
-                viewModel = viewModel, onUpClick = { finish() }
+                recipeInfo = recipeInfo,
+                onUpClick = { finish() },
+                onChooseQuestion = { question ->
+                    // TODO Handle question selection, call GEMINI API
+                },
             )
         }
     }
 
     companion object {
-
         const val EXTRA_RECIPE_ID = "extra_recipe_id"
 
-        //TODO Remove this usage and use Compose Navigator
-        fun startActivity(context: Context, recipeId: String) {
-            val intent = Intent(context, RecipeDetailsActivity::class.java).apply {
-                putExtra(EXTRA_RECIPE_ID, recipeId)
-            }
+        // TODO Remove this usage and use Compose Navigator
+        fun startActivity(
+            context: Context,
+            recipeId: String,
+        ) {
+            val intent =
+                Intent(context, RecipeDetailsActivity::class.java).apply {
+                    putExtra(EXTRA_RECIPE_ID, recipeId)
+                }
             context.startActivity(intent)
         }
     }
