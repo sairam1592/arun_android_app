@@ -79,17 +79,17 @@ fun RecipeDetailScreen(
     ) { innerPadding ->
         Column(
             modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+                Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
         ) {
             Image(
                 painter = rememberAsyncImagePainter(recipeInfo.recipeDetail?.image),
                 contentDescription = recipeInfo.recipeDetail?.description,
                 modifier =
-                Modifier
-                    .aspectRatio(16f / 9f)
-                    .height(278.dp),
+                    Modifier
+                        .aspectRatio(16f / 9f)
+                        .height(278.dp),
                 contentScale = ContentScale.Crop,
             )
 
@@ -149,7 +149,7 @@ fun DropdownQuestionsMenu(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = "Got a doubt? Click here to ask!",
+            text = "Got a doubt? Click here to ask AI!",
             style = MaterialTheme.typography.titleMedium,
         )
 
@@ -185,7 +185,7 @@ fun DropdownQuestionsMenu(
                         Text(
                             text = question,
                             style = MaterialTheme.typography.bodyMedium,
-                            color = colorResource(id = R.color.blue_primary),
+                            color = colorResource(id = R.color.black),
                         )
                     }
                 }
