@@ -22,9 +22,43 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = File("/Users/arun/Desktop/Arun/arun_android_app/app/release-key.keystore")
+            storePassword = "royalenfield"
+            keyAlias = "reciperealm"
+            keyPassword = "royalenfield"
+            enableV1Signing = true
+            enableV2Signing = true
+        }
+
+        create("debugcustom") {
+            storeFile = File("/Users/arun/Desktop/Arun/arun_android_app/app/debug-key.keystore")
+            storePassword = "royalenfield"
+            keyAlias = "reciperealm"
+            keyPassword = "royalenfield"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            isShrinkResources = false
+            isDebuggable = false
+            signingConfig = signingConfigs.findByName("release")
+
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+
+        debug {
+            isMinifyEnabled = false
+            isShrinkResources = false
+            isDebuggable = true
+            signingConfig = signingConfigs.findByName("debugcustom")
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -62,7 +96,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    implementation ("androidx.core:core-splashscreen:1.0.1")
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
 
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -94,7 +128,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.5.0")
 
     //firebase
-    implementation ("com.google.firebase:firebase-firestore:24.10.3")
+    implementation("com.google.firebase:firebase-firestore:24.10.3")
     implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
     implementation("com.google.firebase:firebase-analytics")
 
